@@ -1,10 +1,10 @@
 import { Container, Box, Typography, Button } from '@mui/material'
 import Link from 'next/link'
-import { Home, ArrowBack } from '@mui/icons-material'
+import { Home } from '@mui/icons-material'
 
 export default function ProductNotFound() {
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
+    <Container maxWidth="xl" sx={{ py: 8 }}>
       <Box
         display="flex"
         flexDirection="column"
@@ -32,15 +32,6 @@ export default function ProductNotFound() {
         <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
           <Button variant="contained" size="large" startIcon={<Home />} component={Link} href="/">
             返回首页
-          </Button>
-
-          <Button
-            variant="outlined"
-            size="large"
-            startIcon={<ArrowBack />}
-            onClick={() => window.history.back()}
-          >
-            返回上页
           </Button>
         </Box>
       </Box>

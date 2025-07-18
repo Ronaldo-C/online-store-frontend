@@ -49,7 +49,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     }
 
     return (
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Container maxWidth="xl" sx={{ py: 4 }}>
         <ProductDetailClient product={product} />
       </Container>
     )

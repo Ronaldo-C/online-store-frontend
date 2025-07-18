@@ -127,7 +127,7 @@ const Products = () => {
       >
         <CardMedia
           component="img"
-          image={product.thumbnail}
+          image={product.thumbnail || '/default-product.svg'}
           alt={product.name}
           sx={{ objectFit: 'cover', height: '200px' }}
         />
