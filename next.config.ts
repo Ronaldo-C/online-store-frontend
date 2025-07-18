@@ -1,7 +1,22 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'online-store-test.oss-cn-wuhan-lr.aliyuncs.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'online-store-test.oss-cn-wuhan-lr.aliyuncs.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
+}
 
-export default nextConfig;
+export default nextConfig
