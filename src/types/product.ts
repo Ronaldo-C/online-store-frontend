@@ -1,6 +1,6 @@
 import { ApiSuccessResponse, ApiSuccessResponsePagination, ListRequest } from './common'
 import { ProductCategoryData } from './product-category'
-import Output from 'editorjs-react-renderer'
+import { DataProp } from 'editorjs-blocks-react-renderer'
 
 export interface ProductData {
   id: bigint
@@ -9,7 +9,7 @@ export interface ProductData {
   shelfStatus: boolean
   thumbnail: string
   pictures: string[]
-  description: typeof Output
+  description: DataProp
   skus: ProductSku[]
   categories: ProductCategoryData[]
 }

@@ -4,7 +4,7 @@ import { Container, IconButton, Stack, Drawer, Box } from '@mui/material'
 import Image from 'next/image'
 import MenuIcon from '@mui/icons-material/Menu'
 import HeaderSearch from './HeaderSearch'
-import { use, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { ProductCategoryResponse } from '@/types/product-category'
 import Categories from '../Categories'
 import { usePathname } from 'next/navigation'
@@ -14,10 +14,17 @@ export default function Header({ categories }: { categories: Promise<ProductCate
   const { data } = use(categories)
   const pathname = usePathname()
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open)
   }
+
+  const isHomePage = isClient && pathname === '/'
 
   return (
     <Stack
@@ -34,9 +41,11 @@ export default function Header({ categories }: { categories: Promise<ProductCate
         <Stack direction="row" justifyContent="space-between" alignItems="center" p={2}>
           <Image src="/icon.svg" alt="logo" width={46} height={46} />
           <Stack direction="row" alignItems="center" gap={2}>
-            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-              <HeaderSearch />
-            </Box>
+            {isHomePage && (
+              <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+                <HeaderSearch />
+              </Box>
+            )}
             <IconButton
               size="small"
               sx={{
@@ -56,7 +65,7 @@ export default function Header({ categories }: { categories: Promise<ProductCate
         <Box sx={{ display: { xs: 'block', md: 'none' } }} pb={2}>
           <HeaderSearch />
         </Box>
-        {pathname === '/' && (
+        {isHomePage && (
           <Box sx={{ display: { xs: 'none', md: 'block' } }}>
             <Categories categories={data} />
           </Box>

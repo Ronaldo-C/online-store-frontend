@@ -15,12 +15,14 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
+import { useRouter } from 'next/navigation'
 import { filterProductAtom } from '@/atoms/search'
-import getProducts from '@/apis/product'
 import { ProductData } from '@/types/product'
+import { getProducts } from '@/apis/product'
 
 const Products = () => {
   const [filter] = useAtom(filterProductAtom)
+  const router = useRouter()
 
   let pageSize = 24
   const theme = useTheme()
@@ -75,6 +77,10 @@ const Products = () => {
     }
   }
 
+  const handleProductClick = (productId: bigint) => {
+    router.push(`/product/${productId.toString()}`)
+  }
+
   const renderProductSkeleton = (index: number) => (
     <Grid size={{ lg: 2, xs: 6, sm: 3 }} key={`skeleton-${index}`}>
       <Card
@@ -111,11 +117,13 @@ const Products = () => {
           display: 'flex',
           flexDirection: 'column',
           transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+          cursor: 'pointer',
           '&:hover': {
             transform: 'translateY(-4px)',
             boxShadow: 3,
           },
         }}
+        onClick={() => handleProductClick(product.id)}
       >
         <CardMedia
           component="img"

@@ -1,6 +1,6 @@
-import { ListProductResponse, ListProductRequest } from '@/types/product'
+import { ListProductResponse, ListProductRequest, ProductDetailResponse } from '@/types/product'
 
-const getProducts = async ({
+export const getProducts = async ({
   params,
 }: {
   params: ListProductRequest
@@ -30,4 +30,15 @@ const getProducts = async ({
   return data
 }
 
-export default getProducts
+export const getProductDetail = async (productId: string): Promise<ProductDetailResponse> => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/v1/customer/products/${productId}`
+  )
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch product detail')
+  }
+
+  const data = await response.json()
+  return data
+}

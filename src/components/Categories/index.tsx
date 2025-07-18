@@ -14,10 +14,12 @@ export default function Categories({
 }) {
   const [data, setCategory] = useAtom(filterProductAtom)
   const category = data.category
+  const allCategory = [{ id: null, name: '全部' }, ...categories]
+
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
-  const handleButtonClick = (categoryId: number) => {
+  const handleButtonClick = (categoryId: number | null) => {
     setCategory(prev => ({
       ...prev,
       category: categoryId,
@@ -28,7 +30,7 @@ export default function Categories({
   if (isMobile) {
     return (
       <Stack direction="column" spacing={1} sx={{ width: '100%', py: 1 }}>
-        {categories.map(item => (
+        {allCategory.map(item => (
           <Button
             key={item.id}
             variant="text"
@@ -56,7 +58,7 @@ export default function Categories({
         scrollButtons="auto"
         aria-label="scrollable auto tabs example"
       >
-        {categories.map(item => (
+        {allCategory.map(item => (
           <Tab label={item.name} value={item.id} key={item.id} />
         ))}
       </Tabs>
