@@ -1,0 +1,15 @@
+node_modules/
+npm-debug.log
+dist
+.next/
+.husky/
+.git
+.gitignore
+README.md
+.nyc_output
+coverage
+.trae
+test
+*.md
+.eslintrc.js
+.prettierrc
