@@ -1,0 +1,51 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          script: |
+            cd /${{ secrets.SERVER_USER }}/fontend/online-store-frontend && git pull origin main
+            echo "🛑 停止并删除现有容器..."
+            sudo docker stop online-store-frontend || true
+            sudo docker rm online-store-frontend || true
+
+            echo "🧹 清理旧镜像..."
+            sudo docker image prune -f || true
+
+            echo "🔨 构建新镜像..."
+            sudo docker build -t online-store-frontend:latest .
+
+            cho "🚀 启动新容器..."
+            sudo docker run -d \
+              --name online-store-frontend \
+              --restart always \
+              -p 3001:3001 \
+              online-store-frontend:latest
+
+            echo "⏳ 等待容器启动..."
+            sleep 10
+
+            echo "🔍 检查容器状态..."
+            sudo docker ps | grep online-store-frontend
+
+            echo "📋 显示容器日志..."
+            sudo docker logs --tail=20 online-store-frontend
+
+            echo "✅ 部署完成！"
