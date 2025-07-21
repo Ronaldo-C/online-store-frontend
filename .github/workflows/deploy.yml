@@ -21,7 +21,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
-            cd /${{ secrets.SERVER_USER }}/fontend/online-store-frontend && git pull origin main
+            cd /${{ secrets.SERVER_USER }}/frontend/online-store-frontend && git pull origin main
             echo "🛑 停止并删除现有容器..."
             sudo docker stop online-store-frontend || true
             sudo docker rm online-store-frontend || true
