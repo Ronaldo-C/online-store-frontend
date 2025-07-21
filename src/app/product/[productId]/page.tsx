@@ -5,14 +5,13 @@ import ProductDetailClient from '@/components/ProductDetail/ProductDetailClient'
 import type { Metadata } from 'next'
 
 interface ProductDetailPageProps {
-  params: {
-    productId: string
-  }
+  params: Promise<{ productId: string }>
 }
 
 export async function generateMetadata({ params }: ProductDetailPageProps): Promise<Metadata> {
   try {
-    const productResponse = await getProductDetail(params.productId)
+    const { productId } = await params
+    const productResponse = await getProductDetail(productId)
     const product = productResponse.data
 
     return {
@@ -32,6 +31,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
       },
     }
   } catch (error: unknown) {
+    console.log(error)
     return {
       title: '商品详情',
       description: '商品详情页面',
@@ -41,7 +41,8 @@ export async function generateMetadata({ params }: ProductDetailPageProps): Prom
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   try {
-    const productResponse = await getProductDetail(params.productId)
+    const { productId } = await params
+    const productResponse = await getProductDetail(productId)
     const product = productResponse.data
 
     if (!product) {
@@ -54,6 +55,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       </Container>
     )
   } catch (error: unknown) {
+    console.log(error)
     notFound()
   }
 }

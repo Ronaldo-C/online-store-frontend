@@ -28,7 +28,6 @@ import {
   Share,
   ArrowBack,
   Home,
-  FavoriteOutlined,
   FavoriteBorder,
 } from '@mui/icons-material'
 import { ProductData, ProductSku } from '@/types/product'

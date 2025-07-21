@@ -25,9 +25,10 @@ export async function generateMetadata(): Promise<Metadata> {
       revalidate: 60 * 5,
     },
   })
+
   return {
-    title: data.title,
-    description: data.description,
+    title: data?.title,
+    description: data?.description,
   }
 }
 

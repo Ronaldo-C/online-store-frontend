@@ -14,6 +14,7 @@ export default function Categories({
 }) {
   const [data, setCategory] = useAtom(filterProductAtom)
   const category = data.category
+  console.log(categories)
   const allCategory = [{ id: null, name: '全部' }, ...categories]
 
   const theme = useTheme()

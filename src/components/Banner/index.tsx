@@ -30,9 +30,8 @@ const settings = {
 }
 
 export default function Banner({ seoMetas }: { seoMetas: Promise<SeoMetasResponse> }) {
-  const {
-    data: { images },
-  } = use(seoMetas)
+  const { data } = use(seoMetas)
+  const images = data?.images
 
   if (!images) {
     return null
